@@ -19,11 +19,11 @@
 Blog是基于RuoYi-Vue平台开发  
 RuoYi-Vue是一款基于SpringBoot+Vue的前后端分离极速后台开发框架。
 
-- RuoYi 官网地址：<a target="_blank" href="http://ruoyi.vip">http://ruoyi.vip(opens new window)</a>
+- RuoYi 官网地址：<a target="_blank" href="http://ruoyi.vip">http://ruoyi.vip (opens new window)</a>
 - RuoYi 在线文档：<a target="_blank" href="http://doc.ruoyi.vip/ruoyi-vue">http://doc.ruoyi.vip/ruoyi-vue(opens new window)</a>
-- RuoYi 源码下载：<a target="_blank" href="https://gitee.com/y_project/RuoYi-Vue">https://gitee.com/y_project/RuoYi-Vue(opens new window)</a>
-- RuoYi 在线提问：<a target="_blank" href="https://gitee.com/y_project/RuoYi-Vue/issues">https://gitee.com/y_project/RuoYi-Vue/issues(opens new window)</a>
-- RuoYi 博客：<a target="_blank" href="https://www.oschina.net/p/ruoyi">https://www.oschina.net/p/ruoyi(opens new window)</a>
+- RuoYi 源码下载：<a target="_blank" href="https://gitee.com/y_project/RuoYi-Vue">https://gitee.com/y_project/RuoYi-Vue (opens new window)</a>
+- RuoYi 在线提问：<a target="_blank" href="https://gitee.com/y_project/RuoYi-Vue/issues">https://gitee.com/y_project/RuoYi-Vue/issues (opens new window)</a>
+- RuoYi 博客：<a target="_blank" href="https://www.oschina.net/p/ruoyi">https://www.oschina.net/p/ruoyi (opens new window)</a>
 
 ## 系统需求
 
@@ -89,48 +89,6 @@ RuoYi-Vue是一款基于SpringBoot+Vue的前后端分离极速后台开发框架
 6.  留言管理：管理博客网站留言信息。
 7.  评论管理：管理博客评论信息。
 8.  文件管理：管理博客网站所有上传文件信息。
-
-## 演示图
-
-<table>
-    <tr>
-        <td><img src="ruoyi-ui/public/systemImg/首页.png"/></td>
-        <td><img src="ruoyi-ui/public/systemImg/随笔.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="ruoyi-ui/public/systemImg/留言.jpg"/></td>
-        <td><img src="ruoyi-ui/public/systemImg/文档首页.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="ruoyi-ui/public/systemImg/文档详情.png"/></td>
-        <td><img src="ruoyi-ui/public/systemImg/博客详情.png"/></td>
-    </tr>
-	<tr>
-        <td><img src="ruoyi-ui/public/systemImg/评论.png"/></td>
-        <td><img src="ruoyi-ui/public/systemImg/文章管理.png"/></td>
-    </tr>	 
-    <tr>
-        <td><img src="ruoyi-ui/public/systemImg/文章新增修改.png"/></td>
-        <td><img src="ruoyi-ui/public/systemImg/资源列表.png"/></td>
-    </tr>
-	<tr>
-        <td><img src="ruoyi-ui/public/systemImg/分类管理.png"/></td>
-        <td><img src="ruoyi-ui/public/systemImg/标签管理.png"/></td>
-    </tr>
-	<tr>
-        <td><img src="ruoyi-ui/public/systemImg/留言管理.png"/></td>
-        <td><img src="ruoyi-ui/public/systemImg/评论管理.png"/></td>
-    </tr>
-	<tr>
-        <td><img src="ruoyi-ui/public/systemImg/文件管理.png"/></td>
-        <td><img src="ruoyi-ui/public/systemImg/图片预览.png"/></td>
-    </tr>
-	<tr>
-        <td><img src="ruoyi-ui/public/systemImg/后台首页1.png"/></td>
-        <td><img src="ruoyi-ui/public/systemImg/后台首页2.png"/></td>
-    </tr>
-</table>
-
 
 ## 开发
 
