@@ -5,7 +5,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = process.env.VUE_APP_TITLE || '若依管理系统' // 网页标题
+const name = process.env.VUE_APP_TITLE || '苏烟BLOG系统' // 网页标题
 
 const port = process.env.port || process.env.npm_config_port || 80 // 端口
 
@@ -52,6 +52,7 @@ module.exports = {
     }
   },
   chainWebpack(config) {
+
     config.plugins.delete('preload') // TODO: need test
     config.plugins.delete('prefetch') // TODO: need test
 

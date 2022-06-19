@@ -67,6 +67,7 @@
 </template>
 
 <script>
+
 import { getCodeImg, register } from "@/api/login";
 
 export default {

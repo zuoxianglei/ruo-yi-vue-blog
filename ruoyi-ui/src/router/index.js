@@ -36,6 +36,7 @@ export const constantRoutes = [{
       component: (resolve) => require(['@/views/redirect'], resolve)
     }]
   },
+
   {
     path: '/cms',
     component: (resolve) => require(['@/views/cms/index'], resolve),
@@ -89,31 +90,37 @@ export const constantRoutes = [{
       }
     ]
   },
+
   {
     path: '/cmsLogin',
     component: (resolve) => require(['@/views/cms/cmslogin'], resolve),
     hidden: true,
   },
+
   {
     path: '/cmsRegister',
     component: (resolve) => require(['@/views/cms/cmsRegister'], resolve),
     hidden: true
   },
+
   {
     path: '/admin',
     redirect: '/login',
     hidden: true
   },
+
   {
     path: '/login',
     component: (resolve) => require(['@/views/login'], resolve),
     hidden: true
   },
+
   {
     path: '/register',
     component: (resolve) => require(['@/views/register'], resolve),
     hidden: true
   },
+
   {
     path: '/404',
     component: (resolve) => require(['@/views/error/404'], resolve),

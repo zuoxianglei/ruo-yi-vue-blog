@@ -1,16 +1,17 @@
 package com.ruoyi.common.utils.ip;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.ruoyi.common.config.RuoYiConfig;
 import com.ruoyi.common.constant.Constants;
 import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.common.utils.http.HttpUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 获取地址类
- * 
+ *
  * @author ruoyi
  */
 public class AddressUtils
@@ -41,7 +42,8 @@ public class AddressUtils
                     log.error("获取地理位置异常 {}", ip);
                     return UNKNOWN;
                 }
-                JSONObject obj = JSONObject.parseObject(rspStr);
+                //JSONObject obj = JSONObject.parseObject(rspStr);
+                JSONObject obj = JSON.parseObject(rspStr);
                 String region = obj.getString("pro");
                 String city = obj.getString("city");
                 return String.format("%s %s", region, city);

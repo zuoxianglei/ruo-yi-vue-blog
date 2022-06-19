@@ -7,9 +7,9 @@
         <el-menu-item index="/cms/main/cmsIndex"><i class="el-icon-s-home" style="color: rgba(255, 255, 255);"></i>首页
         </el-menu-item>
         <el-menu-item :index="item.path" v-for="item in menulist" :key="item.id">
-          <!--                图标-->
+          <!--  图标 -->
           <i :class="item.icon" style="color: rgba(255, 255, 255);"></i>
-          <!--                文本-->
+          <!--  文本 -->
           {{item.authName}}
         </el-menu-item>
       </el-menu>
@@ -20,9 +20,9 @@
         <el-menu-item index="/cms/main/cmsIndex" @click="menuAway"><i class="el-icon-s-home"
             style="color: rgba(255, 255, 255);"></i>首页</el-menu-item>
         <el-menu-item :index="item.path" v-for="item in menulist" :key="item.id" @click="menuAway">
-          <!--                图标-->
+          <!--  图标 -->
           <i :class="item.icon" style="color: rgba(255, 255, 255);"></i>
-          <!--                文本-->
+          <!--  文本 -->
           {{item.authName}}
         </el-menu-item>
       </el-menu>
@@ -39,7 +39,9 @@
       <ul v-if="searching">
         <li class="animate__animated animate__fadeInDown search-blog" v-for="blog in searchList" :key="blog.id"
           @click="getBlogInfo(blog.id)">
-          <a><span v-html="blog.title"></span></a>
+          <a>
+            <span v-html="blog.title"></span>
+          </a>
         </li>
       </ul>
     </div>
@@ -64,9 +66,6 @@
     </div>
     <div v-else class="bg-purple">
       <div class="avatar-wrapper">
-        <!-- <el-avatar class="avatar" src="avatar" @error="errorHandler">
-            <i class="el-icon-s-custom" @click="tologin"/>
-          </el-avatar> -->
         <p class="avatar-Name" @click="tologin">登录|注册</p>
       </div>
     </div>

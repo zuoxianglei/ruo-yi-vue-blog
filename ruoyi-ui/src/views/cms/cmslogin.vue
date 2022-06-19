@@ -72,8 +72,8 @@ export default {
     return {
       codeUrl: "",
       loginForm: {
-        username: "admin",
-        password: "admin123",
+        username: "",
+        password: "",
         rememberMe: false,
         code: "",
         uuid: ""
@@ -91,7 +91,7 @@ export default {
       // 验证码开关
       captchaOnOff: true,
       // 注册开关
-      register: true,
+      register: false,
       redirect: undefined
     };
   },
@@ -117,6 +117,7 @@ export default {
         }
       });
     },
+
     getCookie() {
       const username = Cookies.get("username");
       const password = Cookies.get("password");
@@ -127,6 +128,7 @@ export default {
         rememberMe: rememberMe === undefined ? false : Boolean(rememberMe)
       };
     },
+
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {

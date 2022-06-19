@@ -41,4 +41,5 @@ module.exports = {
    * If you want to also use it in dev, you can pass ['production', 'development']
    */
   errorLog: 'production'
+
 }

@@ -15,7 +15,7 @@ import com.ruoyi.framework.interceptor.RepeatSubmitInterceptor;
 
 /**
  * 通用配置
- * 
+ *
  * @author ruoyi
  */
 @Configuration
@@ -67,4 +67,5 @@ public class ResourcesConfig implements WebMvcConfigurer
         // 返回新的CorsFilter
         return new CorsFilter(source);
     }
+
 }

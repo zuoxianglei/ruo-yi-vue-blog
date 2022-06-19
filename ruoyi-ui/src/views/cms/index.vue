@@ -16,6 +16,7 @@
   import cmsMain from './main.vue'
   import cmsNavBar from './NavBar.vue'
   import cmsFooter from './Footer.vue'
+
   // 引入背景图
   import backgroundImages from './backgroundImages.js'
 
