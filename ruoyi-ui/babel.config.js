@@ -3,6 +3,7 @@ module.exports = {
     // https://github.com/vuejs/vue-cli/tree/master/packages/@vue/babel-preset-app
     '@vue/cli-plugin-babel/preset'
   ],
+
   'env': {
     'production': {
       // babel-plugin-dynamic-import-node plugin only does one thing by converting all import() to require().
@@ -10,4 +11,5 @@ module.exports = {
       'plugins': ['dynamic-import-node']
     }
   }
+
 }
