@@ -1,27 +1,7 @@
 package com.ruoyi.generator.service;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.ruoyi.common.constant.Constants;
 import com.ruoyi.common.constant.GenConstants;
 import com.ruoyi.common.core.text.CharsetKit;
@@ -35,10 +15,31 @@ import com.ruoyi.generator.mapper.GenTableMapper;
 import com.ruoyi.generator.util.GenUtils;
 import com.ruoyi.generator.util.VelocityInitializer;
 import com.ruoyi.generator.util.VelocityUtils;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * 业务 服务层实现
- * 
+ *
  * @author ruoyi
  */
 @Service
@@ -54,7 +55,7 @@ public class GenTableServiceImpl implements IGenTableService
 
     /**
      * 查询业务信息
-     * 
+     *
      * @param id 业务ID
      * @return 业务信息
      */
@@ -68,7 +69,7 @@ public class GenTableServiceImpl implements IGenTableService
 
     /**
      * 查询业务列表
-     * 
+     *
      * @param genTable 业务信息
      * @return 业务集合
      */
@@ -80,7 +81,7 @@ public class GenTableServiceImpl implements IGenTableService
 
     /**
      * 查询据库列表
-     * 
+     *
      * @param genTable 业务信息
      * @return 数据库表集合
      */
@@ -92,7 +93,7 @@ public class GenTableServiceImpl implements IGenTableService
 
     /**
      * 查询据库列表
-     * 
+     *
      * @param tableNames 表名称组
      * @return 数据库表集合
      */
@@ -104,7 +105,7 @@ public class GenTableServiceImpl implements IGenTableService
 
     /**
      * 查询所有表信息
-     * 
+     *
      * @return 表信息集合
      */
     @Override
@@ -115,7 +116,7 @@ public class GenTableServiceImpl implements IGenTableService
 
     /**
      * 修改业务
-     * 
+     *
      * @param genTable 业务信息
      * @return 结果
      */
@@ -137,7 +138,7 @@ public class GenTableServiceImpl implements IGenTableService
 
     /**
      * 删除业务对象
-     * 
+     *
      * @param tableIds 需要删除的数据ID
      * @return 结果
      */
@@ -151,7 +152,7 @@ public class GenTableServiceImpl implements IGenTableService
 
     /**
      * 导入表结构
-     * 
+     *
      * @param tableList 导入表列表
      */
     @Override
@@ -186,7 +187,7 @@ public class GenTableServiceImpl implements IGenTableService
 
     /**
      * 预览代码
-     * 
+     *
      * @param tableId 表编号
      * @return 预览数据列表
      */
@@ -219,7 +220,7 @@ public class GenTableServiceImpl implements IGenTableService
 
     /**
      * 生成代码（下载方式）
-     * 
+     *
      * @param tableName 表名称
      * @return 数据
      */
@@ -235,7 +236,7 @@ public class GenTableServiceImpl implements IGenTableService
 
     /**
      * 生成代码（自定义路径）
-     * 
+     *
      * @param tableName 表名称
      */
     @Override
@@ -277,7 +278,7 @@ public class GenTableServiceImpl implements IGenTableService
 
     /**
      * 同步数据库
-     * 
+     *
      * @param tableName 表名称
      */
     @Override
@@ -312,7 +313,7 @@ public class GenTableServiceImpl implements IGenTableService
 
     /**
      * 批量生成代码（下载方式）
-     * 
+     *
      * @param tableNames 表数组
      * @return 数据
      */
@@ -371,7 +372,7 @@ public class GenTableServiceImpl implements IGenTableService
 
     /**
      * 修改保存参数校验
-     * 
+     *
      * @param genTable 业务信息
      */
     @Override
@@ -409,7 +410,7 @@ public class GenTableServiceImpl implements IGenTableService
 
     /**
      * 设置主键列信息
-     * 
+     *
      * @param table 业务表信息
      */
     public void setPkColumn(GenTable table)
@@ -445,7 +446,7 @@ public class GenTableServiceImpl implements IGenTableService
 
     /**
      * 设置主子表信息
-     * 
+     *
      * @param table 业务表信息
      */
     public void setSubTable(GenTable table)
@@ -459,7 +460,7 @@ public class GenTableServiceImpl implements IGenTableService
 
     /**
      * 设置代码生成其他选项值
-     * 
+     *
      * @param genTable 设置后的生成对象
      */
     public void setTableFromOptions(GenTable genTable)
@@ -472,7 +473,7 @@ public class GenTableServiceImpl implements IGenTableService
             String treeName = paramsObj.getString(GenConstants.TREE_NAME);
             String parentMenuId = paramsObj.getString(GenConstants.PARENT_MENU_ID);
             String parentMenuName = paramsObj.getString(GenConstants.PARENT_MENU_NAME);
-            
+
             genTable.setTreeCode(treeCode);
             genTable.setTreeParentCode(treeParentCode);
             genTable.setTreeName(treeName);
@@ -483,7 +484,7 @@ public class GenTableServiceImpl implements IGenTableService
 
     /**
      * 获取代码生成地址
-     * 
+     *
      * @param table 业务表信息
      * @param template 模板文件路径
      * @return 生成地址

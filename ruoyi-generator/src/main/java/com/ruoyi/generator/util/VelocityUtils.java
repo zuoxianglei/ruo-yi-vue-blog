@@ -1,19 +1,20 @@
 package com.ruoyi.generator.util;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import org.apache.velocity.VelocityContext;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.ruoyi.common.constant.GenConstants;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.generator.domain.GenTable;
 import com.ruoyi.generator.domain.GenTableColumn;
+import org.apache.velocity.VelocityContext;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 /**
  * 模板处理工具类
- * 
+ *
  * @author ruoyi
  */
 public class VelocityUtils
@@ -233,7 +234,7 @@ public class VelocityUtils
 
     /**
      * 根据列类型获取导入包
-     * 
+     *
      * @param genTable 业务表对象
      * @return 返回需要导入的包列表
      */
@@ -263,7 +264,7 @@ public class VelocityUtils
 
     /**
      * 根据列类型获取字典组
-     * 
+     *
      * @param genTable 业务表对象
      * @return 返回字典组
      */

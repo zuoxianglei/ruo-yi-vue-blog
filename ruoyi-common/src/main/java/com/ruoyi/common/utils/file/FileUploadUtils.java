@@ -1,9 +1,5 @@
 package com.ruoyi.common.utils.file;
 
-import java.io.File;
-import java.io.IOException;
-import org.apache.commons.io.FilenameUtils;
-import org.springframework.web.multipart.MultipartFile;
 import com.ruoyi.common.config.RuoYiConfig;
 import com.ruoyi.common.constant.Constants;
 import com.ruoyi.common.exception.file.FileNameLengthLimitExceededException;
@@ -12,6 +8,14 @@ import com.ruoyi.common.exception.file.InvalidExtensionException;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.common.utils.uuid.IdUtils;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.Objects;
 
 /**
  * 文件上传工具类
@@ -97,9 +101,8 @@ public class FileUploadUtils
      * @throws InvalidExtensionException 文件校验异常
      */
     public static final String upload(String baseDir, MultipartFile file, String[] allowedExtension)
-            throws FileSizeLimitExceededException, IOException, FileNameLengthLimitExceededException,
-            InvalidExtensionException
-    {
+            throws InvalidExtensionException, IOException, FileUploadException {
+        /*
         int fileNamelength = file.getOriginalFilename().length();
         if (fileNamelength > FileUploadUtils.DEFAULT_FILE_NAME_LENGTH)
         {
@@ -114,6 +117,21 @@ public class FileUploadUtils
         file.transferTo(desc);
         String pathFileName = getPathFileName(baseDir, fileName);
         return pathFileName;
+        */
+
+        int fileNamelength = Objects.requireNonNull(file.getOriginalFilename()).length();
+        if (fileNamelength > FileUploadUtils.DEFAULT_FILE_NAME_LENGTH)
+        {
+            throw new FileNameLengthLimitExceededException(FileUploadUtils.DEFAULT_FILE_NAME_LENGTH);
+        }
+
+        assertAllowed(file, allowedExtension);
+
+        String fileName = extractFilename(file);
+
+        String absPath = getAbsoluteFile(baseDir, fileName).getAbsolutePath();
+        file.transferTo(Paths.get(absPath));
+        return getPathFileName(baseDir, fileName);
     }
 
     /**

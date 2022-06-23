@@ -93,8 +93,6 @@ RuoYi-Vue是一款基于SpringBoot+Vue的前后端分离极速后台开发框架
 ## 开发
 
 ```bash
-# 克隆项目
-git https://gitee.com/Ning310975876/ruo-yi-vue-blog.git
 # 进入项目目录
 cd ruoyi-ui
 # 安装依赖
