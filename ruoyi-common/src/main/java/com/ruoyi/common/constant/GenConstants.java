@@ -2,7 +2,7 @@ package com.ruoyi.common.constant;
 
 /**
  * 代码生成通用常量
- * 
+ *
  * @author ruoyi
  */
 public class GenConstants
@@ -108,6 +108,9 @@ public class GenConstants
 
     /** 模糊查询 */
     public static final String QUERY_LIKE = "LIKE";
+
+    /** 相等查询 */
+    public static final String QUERY_EQ = "EQ";
 
     /** 需要 */
     public static final String REQUIRE = "1";

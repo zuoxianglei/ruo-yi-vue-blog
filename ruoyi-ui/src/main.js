@@ -57,6 +57,7 @@ Vue.component('cmsEditor', cmsEditor)
 Vue.component('FileUpload', FileUpload)
 Vue.component('ImageUpload', ImageUpload)
 
+
 Vue.use(directive)
 Vue.use(plugins)
 Vue.use(VueMeta)

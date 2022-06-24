@@ -122,11 +122,13 @@
     data() {
       return {
         totalcount: 100,
+
         queryInfo: {
           query: '',
           pagenum: 1,
           pagesize: 8
         },
+
         intro: '',
         blogList: [],
         typeList: [],
@@ -155,6 +157,7 @@
           views: null,
           status: null,
         },
+
         // 总条数
         total: 0,
       }

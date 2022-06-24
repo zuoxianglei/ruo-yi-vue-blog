@@ -59,7 +59,7 @@
       <div slot="footer">
         <el-button
           type="primary"
-          @click="handelConfirm"
+          @click="handleConfirm"
         >
           确定
         </el-button>

@@ -1,7 +1,8 @@
 <template>
   <el-container>
     <iframe src="/docs/index.html" id="qt" scrolling="no" frameborder="0"
-            style="position:absolute;top:64px;left: 0px;right:0px;bottom:100px;opacity:1;"></iframe>
+            style="position:absolute;top:64px;left: 0px;right:0px;bottom:100px;opacity:1;"
+    ></iframe>
   </el-container>
 </template>
 
@@ -11,6 +12,7 @@ export default {
   data() {
     return {}
   },
+
   mounted() {
     /**
      * iframe-宽高自适应显示
@@ -24,12 +26,14 @@ export default {
     }
 
     changeqtIframe()
-    window.onresize = function () {
+    window.onresize = function() {
       changeqtIframe()
     }
   }
 }
-</script scoped>
+</script>
+<!--</script scoped>-->
 
-<style scoped rel="stylesheet/scss" lang="scss">
+<style scoped
+       rel="stylesheet/scss" lang="scss">
 </style>

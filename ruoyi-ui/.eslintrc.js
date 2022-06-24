@@ -12,7 +12,7 @@ module.exports = {
   },
   extends: ['plugin:vue/recommended', 'eslint:recommended'],
 
-  // add your custom rules here
+  // 在此处添加您的自定义规则
   //it is base on https://github.com/vuejs/eslint-config-vue
   rules: {
     "vue/max-attributes-per-line": [2, {

@@ -1,15 +1,16 @@
 package com.ruoyi.common.utils;
 
-import java.util.Collection;
-import java.util.List;
 import com.ruoyi.common.constant.Constants;
 import com.ruoyi.common.core.domain.entity.SysDictData;
 import com.ruoyi.common.core.redis.RedisCache;
 import com.ruoyi.common.utils.spring.SpringUtils;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
  * 字典工具类
- * 
+ *
  * @author ruoyi
  */
 public class DictUtils
@@ -21,7 +22,7 @@ public class DictUtils
 
     /**
      * 设置字典缓存
-     * 
+     *
      * @param key 参数键
      * @param dictDatas 字典数据列表
      */
@@ -32,7 +33,7 @@ public class DictUtils
 
     /**
      * 获取字典缓存
-     * 
+     *
      * @param key 参数键
      * @return dictDatas 字典数据列表
      */
@@ -49,7 +50,7 @@ public class DictUtils
 
     /**
      * 根据字典类型和字典值获取字典标签
-     * 
+     *
      * @param dictType 字典类型
      * @param dictValue 字典值
      * @return 字典标签
@@ -61,7 +62,7 @@ public class DictUtils
 
     /**
      * 根据字典类型和字典标签获取字典值
-     * 
+     *
      * @param dictType 字典类型
      * @param dictLabel 字典标签
      * @return 字典值
@@ -73,7 +74,7 @@ public class DictUtils
 
     /**
      * 根据字典类型和字典值获取字典标签
-     * 
+     *
      * @param dictType 字典类型
      * @param dictValue 字典值
      * @param separator 分隔符
@@ -92,7 +93,7 @@ public class DictUtils
                 {
                     if (value.equals(dict.getDictValue()))
                     {
-                        propertyString.append(dict.getDictLabel() + separator);
+                        propertyString.append(dict.getDictLabel()).append(separator);
                         break;
                     }
                 }
@@ -113,7 +114,7 @@ public class DictUtils
 
     /**
      * 根据字典类型和字典标签获取字典值
-     * 
+     *
      * @param dictType 字典类型
      * @param dictLabel 字典标签
      * @param separator 分隔符
@@ -132,7 +133,7 @@ public class DictUtils
                 {
                     if (label.equals(dict.getDictLabel()))
                     {
-                        propertyString.append(dict.getDictValue() + separator);
+                        propertyString.append(dict.getDictValue()).append(separator);
                         break;
                     }
                 }
@@ -153,7 +154,7 @@ public class DictUtils
 
     /**
      * 删除指定字典缓存
-     * 
+     *
      * @param key 字典键
      */
     public static void removeDictCache(String key)
@@ -172,7 +173,7 @@ public class DictUtils
 
     /**
      * 设置cache key
-     * 
+     *
      * @param configKey 参数键
      * @return 缓存键key
      */

@@ -30,13 +30,15 @@
 <script>
 import { constantRoutes } from "@/router";
 
+// 隐藏侧边栏路由
+const hideList = ['/index', '/user/profile'];
+
 export default {
   data() {
     return {
       // 顶部栏初始数
       visibleNumber: 5,
-      // 是否为首次加载
-      isFrist: false,
+      // 是否为首次加载 isFrist: false,
       // 当前激活菜单的 index
       currentIndex: undefined
     };
@@ -71,7 +73,8 @@ export default {
         for (var item in router.children) {
           if (router.children[item].parentPath === undefined) {
             if(router.path === "/") {
-              router.children[item].path = "/redirect/" + router.children[item].path;
+              // router.children[item].path = "/redirect/" + router.children[item].path;
+              router.children[item].path = "/" + router.children[item].path;
             } else {
               if(!this.ishttp(router.children[item].path)) {
                 router.children[item].path = router.path + "/" + router.children[item].path;
@@ -87,22 +90,16 @@ export default {
     // 默认激活的菜单
     activeMenu() {
       const path = this.$route.path;
-      let activePath = this.defaultRouter();
-      if (path.lastIndexOf("/") > 0) {
+      let activePath = path;
+      if (path !== undefined && path.lastIndexOf("/") > 0 && hideList.indexOf(path) === -1) {
         const tmpPath = path.substring(1, path.length);
         activePath = "/" + tmpPath.substring(0, tmpPath.indexOf("/"));
-      } else if ("/index" == path || "" == path) {
-        if (!this.isFrist) {
-          this.isFrist = true;
-        } else {
-          activePath = "index";
-        }
+        this.$store.dispatch('app/toggleSideBarHide', false);
+      } else if(!this.$route.children) {
+        activePath = path;
+        this.$store.dispatch('app/toggleSideBarHide', true);
       }
-      var routes = this.activeRoutes(activePath);
-      if (routes.length === 0) {
-        activePath = this.currentIndex || this.defaultRouter()
-        this.activeRoutes(activePath);
-      }
+      this.activeRoutes(activePath);
       return activePath;
     },
   },

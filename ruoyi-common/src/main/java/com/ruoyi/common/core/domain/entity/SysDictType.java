@@ -1,16 +1,18 @@
 package com.ruoyi.common.core.domain.entity;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.annotation.Excel.ColumnType;
 import com.ruoyi.common.core.domain.BaseEntity;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  * 字典类型表 sys_dict_type
- * 
+ *
  * @author ruoyi
  */
 public class SysDictType extends BaseEntity
@@ -26,6 +28,9 @@ public class SysDictType extends BaseEntity
     private String dictName;
 
     /** 字典类型 */
+    @NotBlank(message = "字典类型不能为空")
+    @Pattern(regexp = "^[a-z][a-z0-9_]*$", message = "字典类型必须以字母开头,且字典类型只能由小写字母或加下划线还有数字组成")
+    @Size(min = 2, max = 200, message = "字典类型长度必须在2-200个字符之间")
     @Excel(name = "字典类型")
     private String dictType;
 
@@ -76,19 +81,19 @@ public class SysDictType extends BaseEntity
     {
         this.status = status;
     }
-    
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("dictId", getDictId())
-            .append("dictName", getDictName())
-            .append("dictType", getDictType())
-            .append("status", getStatus())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .append("remark", getRemark())
-            .toString();
+                .append("dictId", getDictId())
+                .append("dictName", getDictName())
+                .append("dictType", getDictType())
+                .append("status", getStatus())
+                .append("createBy", getCreateBy())
+                .append("createTime", getCreateTime())
+                .append("updateBy", getUpdateBy())
+                .append("updateTime", getUpdateTime())
+                .append("remark", getRemark())
+                .toString();
     }
 }

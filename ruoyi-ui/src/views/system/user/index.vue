@@ -28,13 +28,12 @@
       </el-col>
       <!--用户数据-->
       <el-col :span="20" :xs="24">
-        <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px">
+        <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
           <el-form-item label="用户名称" prop="userName">
             <el-input
               v-model="queryParams.userName"
               placeholder="请输入用户名称"
               clearable
-              size="small"
               style="width: 240px"
               @keyup.enter.native="handleQuery"
             />
@@ -44,7 +43,6 @@
               v-model="queryParams.phonenumber"
               placeholder="请输入手机号码"
               clearable
-              size="small"
               style="width: 240px"
               @keyup.enter.native="handleQuery"
             />
@@ -54,7 +52,6 @@
               v-model="queryParams.status"
               placeholder="用户状态"
               clearable
-              size="small"
               style="width: 240px"
             >
               <el-option
@@ -68,7 +65,6 @@
           <el-form-item label="创建时间">
             <el-date-picker
               v-model="dateRange"
-              size="small"
               style="width: 240px"
               value-format="yyyy-MM-dd"
               type="daterange"
@@ -188,9 +184,9 @@
                 </span>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item command="handleResetPwd" icon="el-icon-key"
-                    v-hasPermi="['system:user:resetPwd']">重置密码</el-dropdown-item>
+                                    v-hasPermi="['system:user:resetPwd']">重置密码</el-dropdown-item>
                   <el-dropdown-item command="handleAuthRole" icon="el-icon-circle-check"
-                    v-hasPermi="['system:user:edit']">分配角色</el-dropdown-item>
+                                    v-hasPermi="['system:user:edit']">分配角色</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </template>
@@ -249,7 +245,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="用户性别">
-              <el-select v-model="form.sex" placeholder="请选择">
+              <el-select v-model="form.sex" placeholder="请选择性别">
                 <el-option
                   v-for="dict in dict.type.sys_user_sex"
                   :key="dict.value"
@@ -274,7 +270,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="岗位">
-              <el-select v-model="form.postIds" multiple placeholder="请选择">
+              <el-select v-model="form.postIds" multiple placeholder="请选择岗位">
                 <el-option
                   v-for="item in postOptions"
                   :key="item.postId"
@@ -287,7 +283,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="角色">
-              <el-select v-model="form.roleIds" multiple placeholder="请选择">
+              <el-select v-model="form.roleIds" multiple placeholder="请选择角色">
                 <el-option
                   v-for="item in roleOptions"
                   :key="item.roleId"
@@ -444,7 +440,7 @@ export default {
         email: [
           {
             type: "email",
-            message: "'请输入正确的邮箱地址",
+            message: "请输入正确的邮箱地址",
             trigger: ["blur", "change"]
           }
         ],
@@ -496,7 +492,7 @@ export default {
     // 节点单击事件
     handleNodeClick(data) {
       this.queryParams.deptId = data.id;
-      this.getList();
+      this.handleQuery();
     },
     // 用户状态修改
     handleStatusChange(row) {
@@ -599,10 +595,10 @@ export default {
         inputPattern: /^.{5,20}$/,
         inputErrorMessage: "用户密码长度必须介于 5 和 20 之间"
       }).then(({ value }) => {
-          resetUserPwd(row.userId, value).then(response => {
-            this.$modal.msgSuccess("修改成功，新密码是：" + value);
-          });
-        }).catch(() => {});
+        resetUserPwd(row.userId, value).then(response => {
+          this.$modal.msgSuccess("修改成功，新密码是：" + value);
+        });
+      }).catch(() => {});
     },
     /** 分配角色操作 */
     handleAuthRole: function(row) {
@@ -664,7 +660,7 @@ export default {
       this.upload.open = false;
       this.upload.isUploading = false;
       this.$refs.upload.clearFiles();
-      this.$alert(response.msg, "导入结果", { dangerouslyUseHTMLString: true });
+      this.$alert("<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" + response.msg + "</div>", "导入结果", { dangerouslyUseHTMLString: true });
       this.getList();
     },
     // 提交上传文件

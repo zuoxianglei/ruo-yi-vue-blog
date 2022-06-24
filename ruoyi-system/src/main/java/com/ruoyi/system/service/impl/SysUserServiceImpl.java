@@ -7,6 +7,7 @@ import com.ruoyi.common.core.domain.entity.SysUser;
 import com.ruoyi.common.exception.ServiceException;
 import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.common.utils.StringUtils;
+import com.ruoyi.common.utils.bean.BeanValidators;
 import com.ruoyi.common.utils.spring.SpringUtils;
 import com.ruoyi.system.domain.SysPost;
 import com.ruoyi.system.domain.SysUserPost;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import javax.validation.Validator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,6 +54,9 @@ public class SysUserServiceImpl implements ISysUserService
 
     @Autowired
     private ISysConfigService configService;
+
+    @Autowired
+    protected Validator validator;
 
     /**
      * 根据条件分页查询用户列表
@@ -373,25 +378,23 @@ public class SysUserServiceImpl implements ISysUserService
      */
     public void insertUserRole(SysUser user)
     {
-        this.insertUserRole(user.getUserId(), user.getRoleIds());
-        //Long[] roles = user.getRoleIds();
-        //if (StringUtils.isNotNull(roles))
-        //{
-        //    // 新增用户与角色管理
-        //    List<SysUserRole> list = new ArrayList<SysUserRole>();
-        //    for (Long roleId : roles)
-        //    {
-        //        SysUserRole ur = new SysUserRole();
-        //        ur.setUserId(user.getUserId());
-        //        ur.setRoleId(roleId);
-        //        list.add(ur);
-        //    }
-        //    if (list.size() > 0)
-        //    {
-        //        userRoleMapper.batchUserRole(list);
-        //    }
-        //}
-
+        Long[] roles = user.getRoleIds();
+        if (StringUtils.isNotNull(roles))
+        {
+            // 新增用户与角色管理
+            List<SysUserRole> list = new ArrayList<SysUserRole>();
+            for (Long roleId : roles)
+            {
+                SysUserRole ur = new SysUserRole();
+                ur.setUserId(user.getUserId());
+                ur.setRoleId(roleId);
+                list.add(ur);
+            }
+            if (list.size() > 0)
+            {
+                userRoleMapper.batchUserRole(list);
+            }
+        }
     }
 
     /**
@@ -402,10 +405,10 @@ public class SysUserServiceImpl implements ISysUserService
     public void insertUserPost(SysUser user)
     {
         Long[] posts = user.getPostIds();
-        if (StringUtils.isNotEmpty(posts))
+        if (StringUtils.isNotNull(posts))
         {
             // 新增用户与岗位管理
-            List<SysUserPost> list = new ArrayList<SysUserPost>(posts.length);
+            List<SysUserPost> list = new ArrayList<SysUserPost>();
             for (Long postId : posts)
             {
                 SysUserPost up = new SysUserPost();
@@ -413,10 +416,10 @@ public class SysUserServiceImpl implements ISysUserService
                 up.setPostId(postId);
                 list.add(up);
             }
-            //if (list.size() > 0)
-            //{
+            if (list.size() > 0)
+            {
                 userPostMapper.batchUserPost(list);
-            //}
+            }
         }
     }
 
@@ -428,10 +431,10 @@ public class SysUserServiceImpl implements ISysUserService
      */
     public void insertUserRole(Long userId, Long[] roleIds)
     {
-        if (StringUtils.isNotEmpty(roleIds))
+        if (StringUtils.isNotNull(roleIds))
         {
             // 新增用户与角色管理
-            List<SysUserRole> list = new ArrayList<SysUserRole>(roleIds.length);
+            List<SysUserRole> list = new ArrayList<SysUserRole>();
             for (Long roleId : roleIds)
             {
                 SysUserRole ur = new SysUserRole();
@@ -439,10 +442,10 @@ public class SysUserServiceImpl implements ISysUserService
                 ur.setRoleId(roleId);
                 list.add(ur);
             }
-            //if (list.size() > 0)
-            //{
+            if (list.size() > 0)
+            {
                 userRoleMapper.batchUserRole(list);
-            //}
+            }
         }
     }
 
@@ -476,6 +479,7 @@ public class SysUserServiceImpl implements ISysUserService
         for (Long userId : userIds)
         {
             checkUserAllowed(new SysUser(userId));
+            checkUserDataScope(userId);
         }
         // 删除用户与角色关联
         userRoleMapper.deleteUserRole(userIds);
@@ -512,6 +516,7 @@ public class SysUserServiceImpl implements ISysUserService
                 SysUser u = userMapper.selectUserByUserName(user.getUserName());
                 if (StringUtils.isNull(u))
                 {
+                    BeanValidators.validateWithException(validator, user);
                     user.setPassword(SecurityUtils.encryptPassword(password));
                     user.setCreateBy(operName);
                     this.insertUser(user);
@@ -520,6 +525,7 @@ public class SysUserServiceImpl implements ISysUserService
                 }
                 else if (isUpdateSupport)
                 {
+                    BeanValidators.validateWithException(validator, user);
                     user.setUpdateBy(operName);
                     this.updateUser(user);
                     successNum++;

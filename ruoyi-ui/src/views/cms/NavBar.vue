@@ -1,6 +1,7 @@
 <template>
   <el-header :style="'margin-bottom:'+ headerBottom +'px'">
-    <h2 class="logo"><svg-icon icon-class="EarOfWheat" />  Blog</h2>
+    <h2 class="logo"><svg-icon icon-class="EarOfWheat" />  苏烟Blog</h2>
+
     <div class="bg-purple-light">
       <el-menu :default-active="activeIndex" router class="el-menu-demo" mode="horizontal" style="border: none;"
         background-color="rgba(0,0,0,0)" text-color="#fff" active-text-color="#ffd04b">
@@ -14,6 +15,7 @@
         </el-menu-item>
       </el-menu>
     </div>
+
     <div class="bg-purple-light el-menu-hidden" v-if="menuHiddenVisiable">
       <el-menu :default-active="activeIndex" router background-color="rgba(84,92,100,0.5)" text-color="#fff"
         active-text-color="#ffd04b">
@@ -171,6 +173,7 @@
           document.body.clientHeight;
         console.log(w, h);
       },
+
       // 展开菜单栏
       menuExpend() {
         this.menuHiddenVisiable = !this.menuHiddenVisiable

@@ -5,7 +5,7 @@ import com.ruoyi.common.utils.StringUtils;
 
 /**
  * 定时任务调度测试
- * 
+ *
  * @author ruoyi
  */
 @Component("ryTask")
@@ -23,6 +23,6 @@ public class RyTask
 
     public void ryNoParams()
     {
-        System.out.println("执行无参方法");
+        System.err.println("执行无参方法-------------ok");
     }
 }

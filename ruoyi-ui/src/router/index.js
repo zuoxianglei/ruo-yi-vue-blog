@@ -82,8 +82,9 @@ export const constantRoutes = [{
           }
         ]
       },
+
       {
-        path: 'doucument',
+        path: 'doucument',  // 文档
         component: (resolve) => require(['@/views/cms/components/cmsDoucument'], resolve),
         hidden: true,
         name: '文档',
@@ -103,21 +104,10 @@ export const constantRoutes = [{
     hidden: true
   },
 
+  // todo
   {
     path: '/admin',
     redirect: '/login',
-    hidden: true
-  },
-
-  {
-    path: '/login',
-    component: (resolve) => require(['@/views/login'], resolve),
-    hidden: true
-  },
-
-  {
-    path: '/register',
-    component: (resolve) => require(['@/views/register'], resolve),
     hidden: true
   },
 
@@ -132,12 +122,12 @@ export const constantRoutes = [{
     hidden: true
   },
   {
-    path: '',
+    path: '',  // 首页
     component: Layout,
     redirect: '/cms',
     children: [{
       path: 'index',
-      component: (resolve) => require(['@/views/index_v2'], resolve),
+      component: (resolve) => require(['@/views/index'], resolve),
       name: 'Index',
       meta: {
         title: '首页',
@@ -222,7 +212,7 @@ export const constantRoutes = [{
     component: Layout,
     hidden: true,
     children: [{
-      path: 'index',
+      path: 'index/:tableId(\\d+)',
       component: (resolve) => require(['@/views/tool/gen/editTable'], resolve),
       name: 'GenEdit',
       meta: {

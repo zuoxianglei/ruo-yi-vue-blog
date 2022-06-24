@@ -15,9 +15,6 @@
 ## 开发
 
 ```bash
-# 克隆项目
-git https://gitee.com/Ning310975876/ruo-yi-vue-blog.git
-
 # 进入项目目录
 cd ruoyi-ui
 

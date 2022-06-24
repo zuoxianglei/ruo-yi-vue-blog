@@ -2,7 +2,7 @@ package com.ruoyi.common.core.domain.model;
 
 /**
  * 用户登录对象
- * 
+ *
  * @author ruoyi
  */
 public class LoginBody
@@ -25,7 +25,8 @@ public class LoginBody
     /**
      * 唯一标识
      */
-    private String uuid = "";
+    //private String uuid = "";
+    private String uuid;
 
     public String getUsername()
     {

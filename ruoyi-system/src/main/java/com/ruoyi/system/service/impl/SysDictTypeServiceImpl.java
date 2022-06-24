@@ -12,12 +12,16 @@ import com.ruoyi.system.service.ISysDictTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.PostConstruct;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 字典 业务层处理
- * 
+ *
  * @author ruoyi
  */
 @Service
@@ -40,7 +44,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService
 
     /**
      * 根据条件分页查询字典类型
-     * 
+     *
      * @param dictType 字典类型信息
      * @return 字典类型集合信息
      */
@@ -52,7 +56,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService
 
     /**
      * 根据所有字典类型
-     * 
+     *
      * @return 字典类型集合信息
      */
     @Override
@@ -63,7 +67,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService
 
     /**
      * 根据字典类型查询字典数据
-     * 
+     *
      * @param dictType 字典类型
      * @return 字典数据集合信息
      */
@@ -86,7 +90,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService
 
     /**
      * 根据字典类型ID查询信息
-     * 
+     *
      * @param dictId 字典类型ID
      * @return 字典类型
      */
@@ -98,7 +102,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService
 
     /**
      * 根据字典类型查询信息
-     * 
+     *
      * @param dictType 字典类型
      * @return 字典类型
      */
@@ -110,9 +114,8 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService
 
     /**
      * 批量删除字典类型信息
-     * 
+     *
      * @param dictIds 需要删除的字典ID
-     * @return 结果
      */
     @Override
     public void deleteDictTypeByIds(Long[] dictIds)
@@ -135,11 +138,12 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService
     @Override
     public void loadingDictCache()
     {
-        List<SysDictType> dictTypeList = dictTypeMapper.selectDictTypeAll();
-        for (SysDictType dictType : dictTypeList)
+        SysDictData dictData = new SysDictData();
+        dictData.setStatus("0");
+        Map<String, List<SysDictData>> dictDataMap = dictDataMapper.selectDictDataList(dictData).stream().collect(Collectors.groupingBy(SysDictData::getDictType));
+        for (Map.Entry<String, List<SysDictData>> entry : dictDataMap.entrySet())
         {
-            List<SysDictData> dictDatas = dictDataMapper.selectDictDataByType(dictType.getDictType());
-            DictUtils.setDictCache(dictType.getDictType(), dictDatas);
+            DictUtils.setDictCache(entry.getKey(), entry.getValue().stream().sorted(Comparator.comparing(SysDictData::getDictSort)).collect(Collectors.toList()));
         }
     }
 
@@ -164,7 +168,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService
 
     /**
      * 新增保存字典类型信息
-     * 
+     *
      * @param dict 字典类型信息
      * @return 结果
      */
@@ -181,7 +185,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService
 
     /**
      * 修改保存字典类型信息
-     * 
+     *
      * @param dict 字典类型信息
      * @return 结果
      */
@@ -202,7 +206,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService
 
     /**
      * 校验字典类型称是否唯一
-     * 
+     *
      * @param dict 字典类型
      * @return 结果
      */
