@@ -23,8 +23,8 @@
     <!-- 上传提示 -->
     <div class="el-upload__tip" slot="tip" v-if="showTip">
       请上传
-      <template v-if="fileSize"> 大小不超过 <b style="color: #f56c6c">{{ fileSize }}MB</b> </template>
-      <template v-if="fileType"> 格式为 <b style="color: #f56c6c">{{ fileType.join("/") }}</b> </template>
+      <template v-if="fileSize"> 大小不超过 <b style="color: #f56c6c">{{ fileSize }}MB</b></template>
+      <template v-if="fileType"> 格式为 <b style="color: #f56c6c">{{ fileType.join("/") }}</b></template>
       的文件
     </div>
 
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { getToken } from "@/utils/auth";
+import {getToken} from "@/utils/auth";
 
 export default {
   props: {
@@ -55,7 +55,7 @@ export default {
     },
     // 大小限制(MB)
     fileSize: {
-       type: Number,
+      type: Number,
       default: 5,
     },
     // 文件类型, 例如['png', 'jpg', 'jpeg']
@@ -71,6 +71,8 @@ export default {
   },
   data() {
     return {
+      number: 0,
+      uploadList: [],
       dialogImageUrl: "",
       dialogVisible: false,
       hideUpload: false,
@@ -92,9 +94,9 @@ export default {
           this.fileList = list.map(item => {
             if (typeof item === "string") {
               if (item.indexOf(this.baseUrl) === -1) {
-                  item = { name: this.baseUrl + item, url: this.baseUrl + item };
+                item = {name: this.baseUrl + item, url: this.baseUrl + item};
               } else {
-                  item = { name: item, url: item };
+                item = {name: item, url: item};
               }
             }
             return item;
@@ -118,13 +120,19 @@ export default {
     // 删除图片
     handleRemove(file, fileList) {
       const findex = this.fileList.map(f => f.name).indexOf(file.name);
-      if(findex > -1) {
+      if (findex > -1) {
         this.fileList.splice(findex, 1);
         this.$emit("input", this.listToString(this.fileList));
       }
     },
     // 上传成功回调
     handleUploadSuccess(res) {
+      console.log('res......'+res.fileName+res.fileName)
+      console.log('1.....'+this.uploadList.length)
+      console.log('2.....'+this.number)
+        // this.fileList.push({ name: res.fileName, url: res.fileName });
+        // this.$emit("input", this.listToString(this.fileList));
+        // this.loading.close();
       this.uploadList.push({ name: res.fileName, url: res.fileName });
       if (this.uploadList.length === this.number) {
         this.fileList = this.fileList.concat(this.uploadList);
@@ -133,7 +141,9 @@ export default {
         this.$emit("input", this.listToString(this.fileList));
         this.$modal.closeLoading();
       }
+
     },
+
     // 上传前loading加载
     handleBeforeUpload(file) {
       let isImg = false;
@@ -194,17 +204,18 @@ export default {
 <style scoped lang="scss">
 // .el-upload--picture-card 控制加号部分
 ::v-deep.hide .el-upload--picture-card {
-    display: none;
+  display: none;
 }
+
 // 去掉动画效果
 ::v-deep .el-list-enter-active,
 ::v-deep .el-list-leave-active {
-    transition: all 0s;
+  transition: all 0s;
 }
 
 ::v-deep .el-list-enter, .el-list-leave-active {
-    opacity: 0;
-    transform: translateY(0);
+  opacity: 0;
+  transform: translateY(0);
 }
 </style>
 
