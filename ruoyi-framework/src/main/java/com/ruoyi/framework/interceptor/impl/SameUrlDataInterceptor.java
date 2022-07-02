@@ -2,7 +2,7 @@ package com.ruoyi.framework.interceptor.impl;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.ruoyi.common.annotation.RepeatSubmit;
-import com.ruoyi.common.constant.Constants;
+import com.ruoyi.common.constant.CacheConstants;
 import com.ruoyi.common.core.redis.RedisCache;
 import com.ruoyi.common.filter.RepeatedlyRequestWrapper;
 import com.ruoyi.common.utils.StringUtils;
@@ -68,7 +68,7 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor
         }
 
         // 唯一标识（指定key + 消息头）
-        String cacheRepeatKey = Constants.REPEAT_SUBMIT_KEY + submitKey;
+        String cacheRepeatKey = CacheConstants.REPEAT_SUBMIT_KEY + submitKey;
 
         Object sessionObj = redisCache.getCacheObject(cacheRepeatKey);
         if (sessionObj != null)

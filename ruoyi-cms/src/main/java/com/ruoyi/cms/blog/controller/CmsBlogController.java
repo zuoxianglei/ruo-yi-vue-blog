@@ -1,40 +1,33 @@
 package com.ruoyi.cms.blog.controller;
 
-import java.util.List;
-import java.util.Set;
-import javax.servlet.http.HttpServletResponse;
-
+import com.ruoyi.cms.blog.domain.CmsBlog;
+import com.ruoyi.cms.blog.service.ICmsBlogService;
+import com.ruoyi.cms.fileInfo.service.ISysFileInfoService;
 import com.ruoyi.cms.tag.domain.CmsTag;
 import com.ruoyi.cms.tag.service.ICmsTagService;
 import com.ruoyi.cms.type.domain.CmsType;
 import com.ruoyi.cms.type.service.ICmsTypeService;
-import com.ruoyi.common.exception.ServiceException;
-import com.ruoyi.common.utils.SecurityUtils;
-import com.ruoyi.common.utils.StringUtils;
-import com.ruoyi.framework.web.service.SysPermissionService;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
-import com.ruoyi.common.enums.BusinessType;
-import com.ruoyi.cms.blog.domain.CmsBlog;
-import com.ruoyi.cms.blog.service.ICmsBlogService;
-import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.page.TableDataInfo;
+import com.ruoyi.common.enums.BusinessType;
+import com.ruoyi.common.utils.SecurityUtils;
+import com.ruoyi.common.utils.StringUtils;
+import com.ruoyi.common.utils.poi.ExcelUtil;
+import com.ruoyi.framework.web.service.SysPermissionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Set;
 
 
 /**
  * 文章管理Controller
- * 
+ *
  * @author ning
  * @date 2022-01-01
  */
@@ -53,6 +46,9 @@ public class CmsBlogController extends BaseController
 
     @Autowired
     private SysPermissionService permissionService;
+
+    @Autowired
+    private ISysFileInfoService sysFileInfoService;
 
     /**
      * 首页查询文章列表
@@ -212,6 +208,7 @@ public class CmsBlogController extends BaseController
         return AjaxResult.success(blogId);
     }
 
+
     /**
      * 修改文章管理
      */
@@ -221,6 +218,18 @@ public class CmsBlogController extends BaseController
     public AjaxResult edit(@RequestBody CmsBlog cmsBlog)
     {
         cmsBlog.setUpdateBy(getUsername());
+        //删除原首图
+        CmsBlog oldBlog = cmsBlogService.selectCmsBlogById(cmsBlog.getId());
+        if (cmsBlog.getBlogPic().isEmpty()||!cmsBlog.getBlogPic().equals(oldBlog.getBlogPic())){
+            if(!oldBlog.getBlogPic().isEmpty()){
+                String blogPic = oldBlog.getBlogPic();
+                if (blogPic!=null&&!"".equals(blogPic)){
+                    int newFileNameSeparatorIndex = blogPic.lastIndexOf("/");
+                    String FileName = blogPic.substring(newFileNameSeparatorIndex + 1).toLowerCase();
+                    sysFileInfoService.deleteSysFileInfoByFileObjectName(FileName);
+                }
+            }
+        }
         return toAjax(cmsBlogService.updateCmsBlog(cmsBlog));
     }
 
@@ -229,9 +238,49 @@ public class CmsBlogController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('cms:blog:remove')")
     @Log(title = "文章管理", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
+    @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {
+        //删除原首图
+        for (Long id : ids) {
+            CmsBlog oldBlog = cmsBlogService.selectCmsBlogById(id);
+            if(!oldBlog.getBlogPic().isEmpty()){
+                String blogPic = oldBlog.getBlogPic();
+                if (blogPic!=null&&!"".equals(blogPic)){
+                    int newFileNameSeparatorIndex = blogPic.lastIndexOf("/");
+                    String FileName = blogPic.substring(newFileNameSeparatorIndex + 1).toLowerCase();
+                    sysFileInfoService.deleteSysFileInfoByFileObjectName(FileName);
+                }
+            }
+        }
         return toAjax(cmsBlogService.deleteCmsBlogByIds(ids));
     }
+
+    /**
+     * 取消按钮-删除首图
+     */
+    @PreAuthorize("@ss.hasPermi('cms:blog:edit')")
+    @PostMapping("/cancel")
+    public AjaxResult cancel(@RequestBody CmsBlog cmsBlog)
+    {
+        String blogPic = cmsBlog.getBlogPic();
+        if (blogPic!=null&&!"".equals(blogPic)){
+            Long blogId = cmsBlog.getId();
+            if (blogId==null){
+                int newFileNameSeparatorIndex = blogPic.lastIndexOf("/");
+                String FileName = blogPic.substring(newFileNameSeparatorIndex + 1).toLowerCase();
+                sysFileInfoService.deleteSysFileInfoByFileObjectName(FileName);
+            }else {
+                String Pic = cmsBlogService.selectCmsBlogById(blogId).getBlogPic();
+                if (!blogPic.equals(Pic)){
+                    int newFileNameSeparatorIndex = blogPic.lastIndexOf("/");
+                    String FileName = blogPic.substring(newFileNameSeparatorIndex + 1).toLowerCase();
+                    sysFileInfoService.deleteSysFileInfoByFileObjectName(FileName);
+                }
+            }
+        }
+        return toAjax(1);
+    }
+
+
 }

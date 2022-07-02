@@ -1,7 +1,10 @@
 package com.ruoyi.quartz.task;
 
-import org.springframework.stereotype.Component;
 import com.ruoyi.common.utils.StringUtils;
+import org.springframework.stereotype.Component;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 定时任务调度测试
@@ -23,6 +26,10 @@ public class RyTask
 
     public void ryNoParams()
     {
-        System.err.println("执行无参方法-------------ok");
+        SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间
+        sdf.applyPattern("yyyy-MM-dd HH:mm:ss a");// a为am/pm的标记
+        Date date = new Date();// 获取当前时间
+        System.err.println("执行无参方法-------------ok-------获取当前时间："+sdf.format(date));
+
     }
 }

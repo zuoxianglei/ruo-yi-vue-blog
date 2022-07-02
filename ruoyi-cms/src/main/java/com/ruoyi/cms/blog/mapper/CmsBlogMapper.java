@@ -1,20 +1,21 @@
 package com.ruoyi.cms.blog.mapper;
 
-import java.util.List;
 import com.ruoyi.cms.blog.domain.CmsBlog;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * 文章管理Mapper接口
- * 
+ *
  * @author ning
  * @date 2022-01-01
  */
-public interface CmsBlogMapper 
+public interface CmsBlogMapper
 {
     /**
      * 查询文章管理
-     * 
+     *
      * @param id 文章管理主键
      * @return 文章管理
      */
@@ -22,7 +23,7 @@ public interface CmsBlogMapper
 
     /**
      * 查询文章管理列表
-     * 
+     *
      * @param cmsBlog 文章管理
      * @return 文章管理集合
      */
@@ -47,7 +48,7 @@ public interface CmsBlogMapper
 
     /**
      * 新增文章管理
-     * 
+     *
      * @param cmsBlog 文章管理
      * @return 结果
      */
@@ -55,7 +56,7 @@ public interface CmsBlogMapper
 
     /**
      * 修改文章管理
-     * 
+     *
      * @param cmsBlog 文章管理
      * @return 结果
      */
@@ -63,7 +64,7 @@ public interface CmsBlogMapper
 
     /**
      * 删除文章管理
-     * 
+     *
      * @param id 文章管理主键
      * @return 结果
      */
@@ -71,7 +72,7 @@ public interface CmsBlogMapper
 
     /**
      * 批量删除文章管理
-     * 
+     *
      * @param ids 需要删除的数据主键集合
      * @return 结果
      */

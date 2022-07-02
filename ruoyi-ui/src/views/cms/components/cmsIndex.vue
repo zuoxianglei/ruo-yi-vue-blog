@@ -12,9 +12,22 @@
         </div>
         <el-row type="flex" align="middle" style="flex-wrap: wrap" :gutter="20" v-for="blog in blogList" :key="blog.id"
           shadow="never" class="blog-content">
-          <el-col :xs="24" :sm="24" style="padding-left: 10px;padding-right: 10px;margin-bottom: 5px;margin-top: -5px;">
+          <el-col class="img" :xs="24" :sm="6">
+            <el-image lazy :src="blog.blogPic" @click="getBlogInfo(blog.id)"></el-image>
+          </el-col>
+          <el-col :xs="24" :sm="18" style="padding-left: 10px;padding-right: 10px;margin-bottom: 5px;margin-top: -5px;">
             <div @click="getBlogInfo(blog.id)">
               <h3><svg-icon icon-class="Topping" v-show="blog.top==1" /> {{blog.title}}</h3>
+
+              <div style="margin-bottom: 10px;">
+                <span style="color: rgba(0, 0, 0, .4);"> {{blog.blogDesc}}</span>
+              </div>
+              <div style="margin-bottom: 10px;">
+                <el-tag effect="plain" size="mini" v-for="tag in blog.tags" :key="tag.tagId" type="success">
+                  {{tag.tagName}}
+                </el-tag>
+              </div>
+
               <div class="blog-info">
                 <div class="user-info">
                   <i class="el-icon-user"></i>
@@ -33,18 +46,21 @@
                     {{tag.typeName}}
                   </el-tag>
                 </div>
-                <div class="blog-tag">
-                  <el-tag effect="plain" size="mini" v-for="tag in blog.tags" :key="tag.tagId" type="success">
-                    {{tag.tagName}}
-                  </el-tag>
-                </div>
+<!--                <div class="blog-tag">-->
+<!--                  <el-tag effect="plain" size="mini" v-for="tag in blog.tags" :key="tag.tagId" type="success">-->
+<!--                    {{tag.tagName}}-->
+<!--                  </el-tag>-->
+<!--                </div>-->
               </div>
             </div>
           </el-col>
         </el-row>
+
+        <pagination v-show="total>0" :total="total" :page.sync="queryParams.pageNum" :limit.sync="queryParams.pageSize" background layout="total, sizes, prev, pager, next, jumper" @pagination="getBlogList"  style="margin-bottom: 30px;float: right;margin-right: 10px;"/>
+
       </el-card>
-      <el-pagination v-show="total>0" :total="total" :page.sync="queryParams.pageNum" :limit.sync="queryParams.pageSize"
-        background layout="total, sizes, prev, pager, next, jumper" hide-on-single-page @pagination="getBlogList" />
+<!--      <el-pagination v-show="total>0" :total="total" :page.sync="queryParams.pageNum" :limit.sync="queryParams.pageSize"-->
+<!--        background layout="total, sizes, prev, pager, next, jumper" hide-on-single-page @pagination="getBlogList" />-->
     </el-col>
     <el-col :xs="24" :sm="5">
       <el-card style="background-color: rgba(255,255,255,0.9)" class=" right-item">
@@ -122,13 +138,11 @@
     data() {
       return {
         totalcount: 100,
-
         queryInfo: {
           query: '',
           pagenum: 1,
           pagesize: 8
         },
-
         intro: '',
         blogList: [],
         typeList: [],
@@ -156,8 +170,9 @@
           top: null,
           views: null,
           status: null,
-        },
 
+          createBy: null
+        },
         // 总条数
         total: 0,
       }
@@ -210,11 +225,28 @@
           target: ".left-item"
         });
         cmsListBlog(this.queryParams).then(response => {
-          this.blogList = response.rows;
+          console.log('getBlogList:'+response.rows)
+          this.blogList = this.picSrc(response.rows);
+          // this.blogList = response.rows;
           this.total = response.total;
           loadingInstance.close();
         });
       },
+
+      //首图地址修改
+      picSrc(blogList){
+        for (let i = 0; i < blogList.length; i++) {
+          let blogInfo = blogList[i];
+          console.log('length'+ blogInfo.blogPic.length)
+          if (blogInfo.blogPic.length > 0) {
+            blogList[i].blogPic = process.env.VUE_APP_BASE_API + blogInfo.blogPic
+          }else{
+            blogList[i].blogPic = '/errorImg.jpg'
+          }
+        };
+        return blogList
+      },
+
       // 开始进入主页
       startRead() {
         this.$nextTick(() => {
@@ -291,7 +323,8 @@
       async selectType(cmsType) {
         this.typeId = cmsType.typeId
         cmsListByTypeId(this.typeId).then(response => {
-          this.blogList = response.rows;
+          this.blogList = this.picSrc(response.rows);
+          // this.blogList = response.rows;
           this.total = response.total;
           // this.totalcount = res.data.totalElements
           this.selectMethod = '分类: ' + cmsType.typeName
@@ -302,7 +335,8 @@
       async selectTag(tag) {
         this.tagId = tag.tagId
         cmsListByTagId(this.tagId).then(response => {
-          this.blogList = response.rows;
+          this.blogList = this.picSrc(response.rows);
+          // this.blogList = response.rows;
           this.total = response.total;
           // this.totalcount = res.data.totalElements
           this.selectMethod = '标签: ' + tag.tagName
@@ -414,6 +448,10 @@
     cursor: pointer;
     box-shadow: 0 0 20px 0 white;
     transition: all .2s;
+  }
+
+  .left-item .pagination-container{
+    background:rgb(255, 255, 255,0)
   }
 
   @keyframes clipMe {
