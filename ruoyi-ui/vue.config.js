@@ -33,6 +33,8 @@ module.exports = {
     host: '0.0.0.0',
     port: port,
     open: true,
+    // 启动项目的时候，默认是https协议
+    https: true,
     proxy: {
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       [process.env.VUE_APP_BASE_API]: {

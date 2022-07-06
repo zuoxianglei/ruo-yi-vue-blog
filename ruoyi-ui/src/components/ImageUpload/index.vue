@@ -130,9 +130,6 @@ export default {
       console.log('res......'+res.fileName+res.fileName)
       console.log('1.....'+this.uploadList.length)
       console.log('2.....'+this.number)
-        // this.fileList.push({ name: res.fileName, url: res.fileName });
-        // this.$emit("input", this.listToString(this.fileList));
-        // this.loading.close();
       this.uploadList.push({ name: res.fileName, url: res.fileName });
       if (this.uploadList.length === this.number) {
         this.fileList = this.fileList.concat(this.uploadList);
