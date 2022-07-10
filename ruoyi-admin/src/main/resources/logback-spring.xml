@@ -4,7 +4,7 @@
     <contextName>${APP_NAME}</contextName>
     <springProperty name="APP_NAME" scope="context" source="spring.application.name"/>
     <!-- 日志存放路径 -->
-<!--    <springProperty name="log.path" source="logging.path" defaultValue="./logs/${APP_NAME}" />-->
+    <!-- <springProperty name="log.path" source="logging.path" defaultValue="./logs/${APP_NAME}" /> -->
     <springProperty name="log.path" scope="context" source="logging.file" defaultValue="./logs/${APP_NAME}"/>
     <springProperty name="LOG_MAXFILESIZE" scope="context" source="logback.filesize" defaultValue="50MB"/>
     <springProperty name="LOG_FILEMAXDAY" scope="context" source="logback.filemaxday" defaultValue="7"/>
@@ -12,15 +12,24 @@
     <springProperty name="ServerPort" scope="context" source="server.port" defaultValue="0000"/>
 
     <!-- 彩色日志依赖的渲染类 -->
-    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
-    <conversionRule conversionWord="wex"
-                    converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
-    <conversionRule conversionWord="wEx"
-                    converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
+    <conversionRule
+            conversionWord="clr"
+            converterClass="org.springframework.boot.logging.logback.ColorConverter">
+    </conversionRule>
+    <conversionRule
+            conversionWord="wex"
+            converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter">
+    </conversionRule>
+    <conversionRule
+            conversionWord="wEx"
+            converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter">
+    </conversionRule>
 
     <!-- 日志输出格式 -->
-    <property name="log.pattern"
-              value="%d{yyyy-MM-dd HH:mm:ss} %highlight(%level) %clr(${PID}){magenta}%clr([%thread]){orange} %clr(%logger){cyan}:%line %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+    <property
+            name="log.pattern"
+            value="%d{yyyy-MM-dd HH:mm:ss} %highlight(%level)  %clr(${PID}){magenta}%clr([%thread]){orange}  %clr(%logger){cyan}:%line %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}">
+    </property>
 
 
     <!-- 控制台输出 -->
@@ -32,7 +41,7 @@
 
 	<!-- 系统日志输出 -->
 	<appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
-	    <file>${log.path}/sys-info.log</file>
+        <!-- <file>${log.path}/sys-info.log </file>-->
         <!-- 循环政策：基于时间创建日志文件 -->
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志文件名格式 -->
@@ -54,7 +63,7 @@
 	</appender>
 
 	<appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
-	    <file>${log.path}/sys-error.log</file>
+        <!-- <file>${log.path}/sys-error.log</file> -->
         <!-- 循环政策：基于时间创建日志文件 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志文件名格式 -->
@@ -77,7 +86,7 @@
 
 	<!-- 用户访问日志输出  -->
     <appender name="sys-user" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${log.path}/sys-user.log</file>
+        <!-- <file>${log.path}/sys-user.log</file> -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 按天回滚 daily -->
             <fileNamePattern>${log.path}/sys-user.%d{yyyy-MM-dd}.log</fileNamePattern>
