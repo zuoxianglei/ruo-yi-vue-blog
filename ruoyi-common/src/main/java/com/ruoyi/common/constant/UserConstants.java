@@ -2,7 +2,7 @@ package com.ruoyi.common.constant;
 
 /**
  * 用户常量信息
- * 
+ *
  * @author ruoyi
  */
 public class UserConstants
@@ -11,6 +11,11 @@ public class UserConstants
      * 平台内系统用户的唯一标志
      */
     public static final String SYS_USER = "SYS_USER";
+
+    /**
+     * ss标记的权限字符
+     */
+    public static final String SS_PERMISSION = "SS_PERMISSION";
 
     /** 正常状态 */
     public static final String NORMAL = "0";
@@ -53,7 +58,7 @@ public class UserConstants
 
     /** Layout组件标识 */
     public final static String LAYOUT = "Layout";
-    
+
     /** ParentView组件标识 */
     public final static String PARENT_VIEW = "ParentView";
 

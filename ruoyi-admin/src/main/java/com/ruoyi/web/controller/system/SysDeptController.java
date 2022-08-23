@@ -73,29 +73,6 @@ public class SysDeptController extends BaseController
     }
 
     /**
-     * 获取部门下拉树列表
-     */
-    @GetMapping("/treeselect")
-    public AjaxResult treeselect(SysDept dept)
-    {
-        List<SysDept> depts = deptService.selectDeptList(dept);
-        return AjaxResult.success(deptService.buildDeptTreeSelect(depts));
-    }
-
-    /**
-     * 加载对应角色部门列表树
-     */
-    @GetMapping(value = "/roleDeptTreeselect/{roleId}")
-    public AjaxResult roleDeptTreeselect(@PathVariable("roleId") Long roleId)
-    {
-        List<SysDept> depts = deptService.selectDeptList(new SysDept());
-        AjaxResult ajax = AjaxResult.success();
-        ajax.put("checkedKeys", deptService.selectDeptListByRoleId(roleId));
-        ajax.put("depts", deptService.buildDeptTreeSelect(depts));
-        return ajax;
-    }
-
-    /**
      * 新增部门
      */
     @PreAuthorize("@ss.hasPermi('system:dept:add')")
@@ -125,15 +102,11 @@ public class SysDeptController extends BaseController
         {
             return AjaxResult.error("修改部门'" + dept.getDeptName() + "'失败，部门名称已存在");
         }
-        //else if (dept.getParentId().equals(dept.getDeptId()))
         else if (dept.getParentId().equals(deptId))
         {
             return AjaxResult.error("修改部门'" + dept.getDeptName() + "'失败，上级部门不能是自己");
         }
-        //else if (StringUtils.equals(UserConstants.DEPT_DISABLE, dept.getStatus())
-        //        && deptService.selectNormalChildrenDeptById(dept.getDeptId()) > 0)
-        else if (StringUtils.equals(UserConstants.DEPT_DISABLE, dept.getStatus())
-            && deptService.selectNormalChildrenDeptById(deptId) > 0)
+        else if (StringUtils.equals(UserConstants.DEPT_DISABLE, dept.getStatus()) && deptService.selectNormalChildrenDeptById(deptId) > 0)
         {
             return AjaxResult.error("该部门包含未停用的子部门！");
         }
