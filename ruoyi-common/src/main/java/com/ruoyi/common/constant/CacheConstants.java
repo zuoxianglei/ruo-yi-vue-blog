@@ -39,4 +39,8 @@ public class CacheConstants
          */
         public static final String RATE_LIMIT_KEY = "rate_limit:";
 
+        /**
+         * 登录账户密码错误次数 redis key
+         */
+        public static final String PWD_ERR_CNT_KEY = "pwd_err_cnt:";
 }

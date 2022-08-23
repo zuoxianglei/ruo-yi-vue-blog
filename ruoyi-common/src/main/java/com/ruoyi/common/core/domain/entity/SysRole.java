@@ -1,16 +1,18 @@
 package com.ruoyi.common.core.domain.entity;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.annotation.Excel.ColumnType;
 import com.ruoyi.common.core.domain.BaseEntity;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.Set;
 
 /**
  * 角色表 sys_role
- * 
+ *
  * @author ruoyi
  */
 public class SysRole extends BaseEntity
@@ -58,6 +60,9 @@ public class SysRole extends BaseEntity
 
     /** 部门组（数据权限） */
     private Long[] deptIds;
+
+    /** 角色菜单权限 */
+    private Set<String> permissions;
 
     public SysRole()
     {
@@ -203,24 +208,34 @@ public class SysRole extends BaseEntity
     {
         this.deptIds = deptIds;
     }
-    
+
+    public Set<String> getPermissions()
+    {
+        return permissions;
+    }
+
+    public void setPermissions(Set<String> permissions)
+    {
+        this.permissions = permissions;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("roleId", getRoleId())
-            .append("roleName", getRoleName())
-            .append("roleKey", getRoleKey())
-            .append("roleSort", getRoleSort())
-            .append("dataScope", getDataScope())
-            .append("menuCheckStrictly", isMenuCheckStrictly())
-            .append("deptCheckStrictly", isDeptCheckStrictly())
-            .append("status", getStatus())
-            .append("delFlag", getDelFlag())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .append("remark", getRemark())
-            .toString();
+                .append("roleId", getRoleId())
+                .append("roleName", getRoleName())
+                .append("roleKey", getRoleKey())
+                .append("roleSort", getRoleSort())
+                .append("dataScope", getDataScope())
+                .append("menuCheckStrictly", isMenuCheckStrictly())
+                .append("deptCheckStrictly", isDeptCheckStrictly())
+                .append("status", getStatus())
+                .append("delFlag", getDelFlag())
+                .append("createBy", getCreateBy())
+                .append("createTime", getCreateTime())
+                .append("updateBy", getUpdateBy())
+                .append("updateTime", getUpdateTime())
+                .append("remark", getRemark())
+                .toString();
     }
 }

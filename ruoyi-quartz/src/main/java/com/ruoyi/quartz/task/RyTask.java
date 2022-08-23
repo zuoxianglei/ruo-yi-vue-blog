@@ -28,8 +28,11 @@ public class RyTask
     {
         SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间
         sdf.applyPattern("yyyy-MM-dd HH:mm:ss a");// a为am/pm的标记
-        Date date = new Date();// 获取当前时间
-        System.err.println("执行无参方法-------------ok-------获取当前时间："+sdf.format(date));
-
+        System.err.println("执行无参方法-------------ok-------获取当前时间："+sdf.format(new Date()));
     }
+    // 定时微信公众好推送
+    public void WxTuisong1(String params){
+        System.out.println("定时微信公众好推送：" + params);
+    }
+
 }

@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 注册校验方法
- *
+ * 
  * @author ruoyi
  */
 @Component
@@ -67,7 +67,7 @@ public class SysRegisterService
         {
             msg = "密码长度必须在5到20个字符之间";
         }
-        else if (UserConstants.NOT_UNIQUE.equals(userService.checkUserNameUnique(username))||"匿名用户".equals(username))
+        else if (UserConstants.NOT_UNIQUE.equals(userService.checkUserNameUnique(username)))
         {
             msg = "保存用户'" + username + "'失败，注册账号已存在";
         }
@@ -93,7 +93,7 @@ public class SysRegisterService
 
     /**
      * 校验验证码
-     *
+     * 
      * @param username 用户名
      * @param code 验证码
      * @param uuid 唯一标识

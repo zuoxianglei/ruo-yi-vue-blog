@@ -16,6 +16,7 @@ import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.common.utils.ip.IpUtils;
 import com.ruoyi.framework.manager.AsyncManager;
 import com.ruoyi.framework.manager.factory.AsyncFactory;
+import com.ruoyi.framework.security.context.AuthenticationContextHolder;
 import com.ruoyi.system.service.ISysConfigService;
 import com.ruoyi.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ import javax.annotation.Resource;
 
 /**
  * 登录校验方法
- *
+ * 
  * @author ruoyi
  */
 @Component
@@ -43,7 +44,7 @@ public class SysLoginService
 
     @Autowired
     private RedisCache redisCache;
-
+    
     @Autowired
     private ISysUserService userService;
 
@@ -52,7 +53,7 @@ public class SysLoginService
 
     /**
      * 登录验证
-     *
+     * 
      * @param username 用户名
      * @param password 密码
      * @param code 验证码
@@ -71,9 +72,10 @@ public class SysLoginService
         Authentication authentication = null;
         try
         {
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+            AuthenticationContextHolder.setContext(authenticationToken);
             // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
-            authentication = authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            authentication = authenticationManager.authenticate(authenticationToken);
         }
         catch (Exception e)
         {
@@ -97,7 +99,7 @@ public class SysLoginService
 
     /**
      * 校验验证码
-     *
+     * 
      * @param username 用户名
      * @param code 验证码
      * @param uuid 唯一标识

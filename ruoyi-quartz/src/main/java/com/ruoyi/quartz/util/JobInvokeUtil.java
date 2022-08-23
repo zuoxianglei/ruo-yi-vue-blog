@@ -1,12 +1,13 @@
 package com.ruoyi.quartz.util;
 
+import com.ruoyi.common.utils.StringUtils;
+import com.ruoyi.common.utils.spring.SpringUtils;
+import com.ruoyi.quartz.domain.SysJob;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
-import com.ruoyi.common.utils.StringUtils;
-import com.ruoyi.common.utils.spring.SpringUtils;
-import com.ruoyi.quartz.domain.SysJob;
 
 /**
  * 任务执行工具
@@ -65,7 +66,7 @@ public class JobInvokeUtil
     /**
      * 校验是否为为class包名
      * 
-     * @param str 名称
+     * @param invokeTarget 名称
      * @return true是 false否
      */
     public static boolean isValidClassName(String invokeTarget)
